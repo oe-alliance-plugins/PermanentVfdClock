@@ -1,6 +1,11 @@
+from os import path
+from time import localtime
+
+from Components.ActionMap import ActionMap
 from Components.config import config, ConfigSubsection, getConfigListEntry, ConfigBoolean, ConfigInteger
 from Components.Sources.StaticText import StaticText
 from Components.ConfigList import ConfigListScreen
+from Components.ServiceEventTracker import ServiceEventTracker
 from enigma import eTimer, iPlayableService
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
@@ -22,7 +27,6 @@ class PermanentVfdClock(Screen):
         Screen.__init__(self, session)
         self.session = session
 
-        from Components.ServiceEventTracker import ServiceEventTracker
         self.__event_tracker = ServiceEventTracker(screen=self, eventmap={
             iPlayableService.evStart: self.serviceChanged,
         })
@@ -38,9 +42,8 @@ class PermanentVfdClock(Screen):
             gTimer.start(val * 1000, True)
 
     def timeCallback(self):
-        from Screens.Standby import inStandby
+        from Screens.Standby import inStandby  # this impoer must be here to get the valid Standby state
         if not inStandby and config.plugins.PermanentVfdClock.enabled.value:
-            from time import localtime
             t = localtime()
             try:
                 with open(VFD_PATH, "w") as vfd:
@@ -71,8 +74,6 @@ class PermanentVfdClockMenu(Screen, ConfigListScreen):
         self.skin = PermanentVfdClockMenu.skin
         self.session = session
         Screen.__init__(self, session)
-
-        from Components.ActionMap import ActionMap
 
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("OK"))
@@ -121,7 +122,6 @@ def main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-    from os import path
     if path.exists(VFD_PATH):
         return [
             PluginDescriptor(where=[PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart),
