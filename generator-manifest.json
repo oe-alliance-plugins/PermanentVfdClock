@@ -1,0 +1,24 @@
+{
+  "depends": "",
+  "description": "Show clock in VFD permanently",
+  "legacy_setup": {
+    "description": "Show clock in VFD permanently",
+    "has_setup_translate": false,
+    "name": "enigma2-plugin-extensions-permanentvfdclock",
+    "package_data": [],
+    "package_dir_value": "",
+    "packages": [],
+    "pkg": "Extensions.PermanentVfdClock",
+    "version": "1.0"
+  },
+  "module_dir_name": "PermanentVfdClock",
+  "package_name": "enigma2-plugin-extensions-permanentvfdclock",
+  "plugin_group": "extensions",
+  "source_repo_branch": "python3",
+  "source_repo_name": "e2openplugin-PermanentVfdClock",
+  "source_repo_url": "https://github.com/E2OpenPlugins/e2openplugin-PermanentVfdClock.git",
+  "target_repo_branch": "main",
+  "target_repo_name": "PermanentVfdClock",
+  "target_repo_url": "git@github.com:oe-alliance-plugins/PermanentVfdClock.git",
+  "version": "1.0"
+}
